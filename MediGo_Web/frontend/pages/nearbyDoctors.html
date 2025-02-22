@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Doctors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 250px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Grid Layout */
+        #doctors-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        /* Doctor Card Styling */
+        .doctor-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 300px;
+            margin: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .doctor-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Circular Profile Image */
+        .doctor-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+            margin-bottom: 10px;
+        }
+
+        .doctor-card h3 {
+            color: #007bff;
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+
+        .doctor-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .doctor-card .fees {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .doctor-card .rating {
+            font-weight: bold;
+            color: #f39c12;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Find Nearby Doctors</h2>
+    <div class="search-container">
+        <input type="text" id="location-input" placeholder="Enter your location">
+        <button onclick="searchDoctors()">Search</button>
+    </div>
+
+    <div id="doctors-list"></div>
+
+    <script>
+        async function searchDoctors() {
+            let locationInput = document.getElementById("location-input").value.trim();
+            let doctorsList = document.getElementById("doctors-list");
+
+            if (!locationInput) {
+                alert("Please enter a location.");
+                return;
+            }
+
+            // Convert location to coordinates using OpenStreetMap API
+            let geoResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${locationInput}`);
+            let geoData = await geoResponse.json();
+
+            if (geoData.length === 0) {
+                alert("Location not found. Please enter a valid location.");
+                return;
+            }
+
+            let userLat = parseFloat(geoData[0].lat);
+            let userLon = parseFloat(geoData[0].lon);
+
+            try {
+                let response = await fetch(`http://127.0.0.1:5000/doctors?latitude=${userLat}&longitude=${userLon}`);
+                let doctors = await response.json();
+                doctorsList.innerHTML = "";
+
+                if (doctors.length === 0) {
+                    doctorsList.innerHTML = "<p>No doctors found within 50 km.</p>";
+                    return;
+                }
+
+                doctors.forEach(doctor => {
+                    doctorsList.innerHTML += `
+                        <div class="doctor-card">
+                            <img src="${doctor.image_url || 'https://via.placeholder.com/200'}" alt="${doctor.name}">
+                            <h3>${doctor.name} (${doctor.specialty})</h3>
+                            <p><strong>Hospital:</strong> ${doctor.hospital_name}</p>
+                            <p><strong>Location:</strong> ${doctor.location}</p>
+                            <p class="fees"><strong>Fees:</strong> ₹${doctor.fees}</p>
+                            <p class="rating"><strong>Rating:</strong> ⭐${doctor.rating}/5</p>
+                            <p><strong>Distance:</strong> ${doctor.distance} km</p>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                doctorsList.innerHTML = `<p style="color: red;">Error fetching doctors: ${error.message}</p>`;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
