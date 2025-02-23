@@ -54,30 +54,13 @@ MediGo: Instant Doctor Consultation &amp; Booking
    
 
 3. *Install Dependencies*  
-   - 
+   -pip install flask
+   -pip install flask Cors
+   -pip install supabase
+   -pip install request
        
-   - Frontend  
-     bash
-     cd client
-     npm install
-       
-
-4. *Setup Environment Variables*  
-   - Create a .env file in the backend directory with:  
-     
-     PORT=5000
-     MONGO_URI=your-mongodb-uri
-     JWT_SECRET=your-secret-key
        
 
-5. *Run the Application*  
-   - Backend:  
-     bash
-     npm run server
-       
-   - Frontend:  
-     bash
-     npm start
        
 
 ## 4. Technologies Used  
