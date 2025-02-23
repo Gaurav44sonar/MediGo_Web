@@ -36,11 +36,10 @@ MediGo: Instant Doctor Consultation &amp; Booking
 ## 3. Installation & Setup  
 
 ### *Prerequisites*  
-- Node.js  
-- MongoDB (or any preferred database)  
-- Express.js  
-- React.js (Frontend)  
-- Postman (For API testing, optional)  
+- Python
+- Supabase  
+- Flask
+- Javascript
 
 ### *Steps to Run the Application*  
 1. *Clone the Repository*  
@@ -99,7 +98,7 @@ MediGo: Instant Doctor Consultation &amp; Booking
 4. *Update Availability*
 
 ## 8. Future Enhancements  
-🔹 *Live Chat with Doctors*  
+🔹 *Live video chat with Doctors*  
 🔹 *AI-based Doctor Recommendations*  
 🔹 *Payment Integration for Online Consultation*  
 
