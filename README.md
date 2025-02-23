@@ -43,16 +43,18 @@ MediGo: Instant Doctor Consultation &amp; Booking
 
 ### *Steps to Run the Application*  
 1. *Clone the Repository*  
-   bash
-   git clone https://github.com/your-repository/medigo.git
-   cd medigo
+   
+   > git clone https://github.com/Gaurav44sonar/MediGo_Web.git
+   > go to main folder
+   > go to the backend folder
+   > run main.py
+   > go to frontend folder
+   > run index.html
+   
    
 
-2. *Install Dependencies*  
-   - Backend  
-     bash
-     cd server
-     npm install
+3. *Install Dependencies*  
+   - 
        
    - Frontend  
      bash
@@ -60,7 +62,7 @@ MediGo: Instant Doctor Consultation &amp; Booking
      npm install
        
 
-3. *Setup Environment Variables*  
+4. *Setup Environment Variables*  
    - Create a .env file in the backend directory with:  
      
      PORT=5000
@@ -68,7 +70,7 @@ MediGo: Instant Doctor Consultation &amp; Booking
      JWT_SECRET=your-secret-key
        
 
-4. *Run the Application*  
+5. *Run the Application*  
    - Backend:  
      bash
      npm run server
