@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - MediGo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .profile-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        h3#userName {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        h4.account-title {
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: underline;
+            margin-top: 15px;
+        }
+
+        .profile-details p {
+            text-align: left;
+        }
+
+        .editable {
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        .editable:focus {
+            border-bottom: 1px solid #007bff;
+            background-color: #f1f1f1;
+        }
+
+        .appointments, .medical-history {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Topbar Start -->
+    <div class="container-fluid py-2 border-bottom d-none d-lg-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-decoration-none text-body pe-3" href=""><i class="bi bi-telephone me-2"></i>+012 345 6789</a>
+                        <span class="text-body">|</span>
+                        <a class="text-decoration-none text-body px-3" href=""><i class="bi bi-envelope me-2"></i>info@example.com</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-lg-end">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-body ps-2" href="">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+
+    <!-- Navbar Start -->
+    <div id="navbar-container"></div>
+    <!-- Navbar End -->
+
+
+    <div class="container-sm">
+        <div class="profile-container">
+            <img src="../assets/img/user.jpg" alt="User Avatar" class="profile-pic">
+            <h3 id="userName">John Doe</h3>
+            <p id="userEmail">johndoe@example.com</p>
+
+            <div class="profile-details">
+                <h4 class="account-title">Account Details</h4>
+                <p><strong>Full Name:</strong> <span id="fullName" class="editable" contenteditable="false">John Doe</span></p>
+                <p><strong>Mobile:</strong> <span id="mobile" class="editable" contenteditable="false">+123 456 7890</span></p>
+                <p><strong>Location:</strong> <span id="location" class="editable" contenteditable="false">New York, USA</span></p>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
+                <button class="btn btn-success" id="saveProfileBtn" style="display:none;">Save</button>
+                <button class="btn btn-danger" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+
+        <div class="appointments mt-4">
+            <h5>My Appointments</h5>
+            <ul id="appointmentList" class="list-group">
+                <li class="list-group-item">No upcoming appointments.</li>
+            </ul>
+        </div>
+
+        <div class="medical-history mt-4">
+            <h5>Medical History</h5>
+            <ul id="medicalHistoryList" class="list-group">
+                <li class="list-group-item">No medical history records available.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("editProfileBtn").addEventListener("click", function() {
+            document.querySelectorAll(".editable").forEach(element => {
+                element.contentEditable = "true";
+                element.style.borderBottom = "1px solid #007bff";
+                element.style.backgroundColor = "#f1f1f1";
+            });
+            document.getElementById("editProfileBtn").style.display = "none";
+            document.getElementById("saveProfileBtn").style.display = "inline-block";
+        });
+
+        document.getElementById("saveProfileBtn").addEventListener("click", function() {
+            document.querySelectorAll(".editable").forEach(element => {
+                element.contentEditable = "false";
+                element.style.borderBottom = "none";
+                element.style.backgroundColor = "transparent";
+            });
+            document.getElementById("editProfileBtn").style.display = "inline-block";
+            document.getElementById("saveProfileBtn").style.display = "none";
+        });
+    </script>
+
+    
+    <!-- Footer Start -->
+    <div id="footer-container"></div>
+    <!-- Footer End -->
+   
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="../../assets/lib/jquery.min.js"></script>
+    <script src="../../assets/lib/easing.min.js"></script>
+    <script src="../../assets/lib/waypoints.min.js"></script>
+    <script src="../../assets/lib/owl.carousel.min.js"></script>
+    <script src="../../assets/lib/moment.min.js"></script>
+    <script src="../../assets/lib/moment-timezone.min.js"></script>
+    <script src="../../assets/lib/tempusdominus-bootstrap-4.min.js"></script>
+
+
+
+    <!-- Template Javascript -->
+    <script src="../assets/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <style>
+       
+    
+        /* Dashboard Container */
+        .dashboard-container {
+            width: 70%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        /* Doctor Information */
+        .doctor-info {
+            text-align: left;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+    
+        /* Doctor Profile Photo */
+        .doctor-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+            display: block;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+    
+        /* Appointments Section */
+        .appointments-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+    
+        .appointment {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 100%;
+        }
+    
+        .appointment p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+    
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    
+        .accept-btn, .decline-btn, .edit-btn, .save-btn, .cancel-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            width: 10%;
+            transition: background 0.3s ease-in-out;
+        }
+    
+        .accept-btn {
+            background-color: #28a745;
+        }
+    
+        .accept-btn:hover {
+            background-color: #218838;
+        }
+    
+        .decline-btn {
+            background-color: #dc3545;
+        }
+    
+        .decline-btn:hover {
+            background-color: #c82333;
+        }
+    
+        .edit-btn {
+            background-color: #007bff;
+        }
+    
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+    
+        .save-btn {
+            background-color: #28a745;
+        }
+    
+        .save-btn:hover {
+            background-color: #218838;
+        }
+    
+        .cancel-btn {
+            background-color: #dc3545;
+        }
+    
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
+    
+        /* Certificate Section */
+        .certificate-container {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    
+        .certificate-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            border: 3px solid #007bff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+        }
+    
+        /* Edit Form */
+        .edit-form {
+            display: none;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+    
+        .edit-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+    
+        .edit-form input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                width: 100%;
+            }
+    
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+    
+            .accept-btn, .decline-btn, .edit-btn, .save-btn, .cancel-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    
+    
+</head>
+<body>
+
+     <!-- Topbar Start -->
+     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-decoration-none text-body pe-3" href=""><i class="bi bi-telephone me-2"></i>+012 345 6789</a>
+                        <span class="text-body">|</span>
+                        <a class="text-decoration-none text-body px-3" href=""><i class="bi bi-envelope me-2"></i>info@example.com</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-lg-end">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="text-body px-2" href="">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-body ps-2" href="">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+
+    <!-- Navbar Start -->
+    <div id="navbar-container"></div>
+    <!-- Navbar End -->
+
+<center>
+    <div>
+    <div class="dashboard-container">
+        
+        <h2>Doctor's Profile</h2>
+        <div class="doctor-info" id="doctorInfo">
+            <img src="../assets/img/user.jpg" alt="Doctor's Photo" class="doctor-photo">
+            <p><strong>Name:</strong> <span id="name">Dr. John Doe</span></p>
+            <p><strong>Email:</strong> <span id="email">johndoe@example.com</span></p>
+            <p><strong>Specialization:</strong> <span id="specialization">Cardiology</span></p>
+            <p><strong>Experience:</strong> <span id="experience">10+ Years</span></p>
+            <p><strong>License Number:</strong> <span id="license">DOC123456</span></p>
+            <p><strong>Hospital Affiliation:</strong> <span id="hospital">City General Hospital</span></p>
+            <p><strong>Education:</strong> <span id="education">MBBS, MD - Cardiology</span></p>
+            <p><strong>Visiting Fees:</strong><span id="vfees">300/-</span></p>
+            <button class="edit-btn" onclick="showEditForm()">Edit Profile</button>
+            <button class="btn btn-danger" id="logoutBtn" onclick="">Logout</button>
+        </div>
+
+        <form class="edit-form" id="editForm">
+            <h3>Edit Profile</h3>
+            <label>Update Photo:</label>
+            <input type="file" id="editPhoto" accept="image/*">
+            <label>Name:</label>
+            <input type="text" id="editName" value="Dr. John Doe">
+            <label>Email:</label>
+            <input type="email" id="editEmail" value="johndoe@example.com">
+            <label>Specialization:</label>
+            <input type="text" id="editSpecialization" value="Cardiology">
+            <label>Experience:</label>
+            <input type="text" id="editExperience" value="10+ Years">
+            <label>License Number:</label>
+            <input type="text" id="editLicense" value="DOC123456">
+            <label>Hospital Affiliation:</label>
+            <input type="text" id="editHospital" value="City General Hospital">
+            <label>Education:</label>
+            <input type="text" id="editEducation" value="MBBS, MD - Cardiology">
+            <label>Visiting Fees:</label>
+            <input type="text" id="editVfees" value="300/-">
+            <button type="button" class="save-btn" onclick="saveChanges()">Save</button>
+            <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+
+    <div class="dashboard-container">
+        <h2>Doctor's License</h2>
+        <div class="certificate-container">
+            <img src="doctor-license.jpg" alt="Doctor's License" class="certificate-image">
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <h2>Pending Appointments</h2>
+        <div class="appointments-container">
+            <div class="appointment">
+                <p><strong>Patient Name:</strong> Jane Doe</p>
+                <p><strong>Appointment Date:</strong> 25th Feb 2025</p>
+                <p><strong>Time:</strong> 10:00 AM</p>
+                <div class="buttons">
+                    <button class="accept-btn" onclick="sendPostRequest()">Accept</button>
+                    <button class="decline-btn">Decline</button>
+                </div>
+            </div>
+
+            <div class="appointment">
+                <p><strong>Patient Name:</strong> Mark Smith</p>
+                <p><strong>Appointment Date:</strong> 26th Feb 2025</p>
+                <p><strong>Time:</strong> 2:00 PM</p>
+                <div class="buttons">
+                    <button onclick="confirmAppointment()" class="accept-btn" onclick="app.py">Accept</button>
+                    <button class="decline-btn" >Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script> function showEditForm() {
+        document.getElementById("doctorInfo").style.display = "none";
+        document.getElementById("editForm").style.display = "block";
+    }
+
+
+
+function sendPostRequest() {
+    fetch('../backend/models/app.py', {  // Make sure this matches your backend route
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Accepted!" })  // Data you want to send
+    })
+    .then(response => response.json())  // Handle response
+    .then(data => console.log("Success:", data))
+    .catch(error => console.error("Error:", error));
+}
+       
+
+        function saveChanges() {
+            let photoInput = document.getElementById("editPhoto");
+            if (photoInput.files.length > 0) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("doctorPhoto").src = e.target.result;
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+        }}
+
+        function saveChanges() {
+    let photoInput = document.getElementById("editPhoto");
+    let doctorPhoto = document.querySelector(".doctor-photo"); // Selects the profile image
+
+    if (photoInput.files.length > 0) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            doctorPhoto.src = e.target.result; // Updates the image source
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+    }
+
+    document.getElementById("name").innerText = document.getElementById("editName").value;
+    document.getElementById("email").innerText = document.getElementById("editEmail").value;
+    document.getElementById("specialization").innerText = document.getElementById("editSpecialization").value;
+    document.getElementById("experience").innerText = document.getElementById("editExperience").value;
+    document.getElementById("license").innerText = document.getElementById("editLicense").value;
+    document.getElementById("hospital").innerText = document.getElementById("editHospital").value;
+    document.getElementById("education").innerText = document.getElementById("editEducation").value;
+    document.getElementById("vfees").innerText = document.getElementById("editVfees").value;
+
+    document.getElementById("editForm").style.display = "none";
+    document.getElementById("doctorInfo").style.display = "block";
+}
+
+
+        function cancelEdit() {
+            document.getElementById("editForm").style.display = "none";
+            document.getElementById("doctorInfo").style.display = "block";
+        }
+    </script>
+</div>
+</center>
+
+<!-- Footer Start -->
+<div id="footer-container"></div>
+<!-- Footer End -->
+
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="../../assets/lib/jquery.min.js"></script>
+<script src="../../assets/lib/easing.min.js"></script>
+<script src="../../assets/lib/waypoints.min.js"></script>
+<script src="../../assets/lib/owl.carousel.min.js"></script>
+<script src="../../assets/lib/moment.min.js"></script>
+<script src="../../assets/lib/moment-timezone.min.js"></script>
+<script src="../../assets/lib/tempusdominus-bootstrap-4.min.js"></script>
+
+
+
+<!-- Template Javascript -->
+<script src="../assets/js/main.js"></script>
+   
+</body>
+</html>
